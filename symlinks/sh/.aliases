@@ -9,6 +9,9 @@ alias cat="bat"
  # Change to path shown in Finder.
 alias cdfinder='fish -c "cd (finderpath)"'
 
+# Use live search from skim's interactive mode to open result in Emacs.
+alias emski="ski | sed 's/^\([^:]*\):\([[:digit:]]*\).*\$/+\2 \1/' | xargs emacsclient --no-wait --quiet"
+
 # Print path currently shown in Finder.
 alias finderpath="osascript -e 'tell app \"Finder\" to POSIX path of (insertion location as alias)'"
 
@@ -29,6 +32,9 @@ alias rf="fd"
 
 # Print human-readable size of file or directory.
 alias sizeof="du -sh"
+
+# Open skim in interactive mode for live searching.
+alias ski="sk --ansi -i -c 'rg --color=always --line-number --smart-case \"{}\"'"
 
 # Safely edit a file as root.
 alias sudoedit="sudo --edit"

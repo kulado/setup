@@ -63,3 +63,30 @@ function rm_ds_store --description "Remove .DS_Store files recursively from a di
         echo "No .DS_Store files found."
     end
 end
+
+function skedit --description "Search for file with skim and open with given tool" \
+                --argument dir tool
+    assert "$tool"
+    or echo "Missing required argument <tool>." >&2 && return 1
+
+    if [ "$dir" ]
+        cd $dir or return 1
+    end
+    set --local file (sk --ansi --height=10%) && $tool $file
+    if [ "$dir" ]
+        cd -
+    end
+end
+
+function ske --description "Search for file with skim and edit it in emacs" --argument dir
+    skedit "$dir" em
+end
+
+function skv --description "Search for file with skim and edit it in vim" --argument dir
+    skedit "$dir" nvim
+end
+
+function sko --description "Search for file with skim and open it with default application" \
+             --argument dir
+    skedit "$dir" /usr/bin/open
+end
